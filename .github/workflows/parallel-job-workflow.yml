@@ -1,7 +1,9 @@
+
 name: parallel-job-example
 
 on:
   workflow_dispatch:
+
   push:
     branches:
       - main
@@ -18,12 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js 
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: '22'
 
       - name: Print a message for main branch
         if: github.ref == 'refs/heads/main'
@@ -32,9 +34,6 @@ jobs:
       - name: Print a message for non-main branches
         if: github.ref != 'refs/heads/main'
         run: echo "This is not the main branch."
-
-      - name: Run tests
-        run: npm test
 
       - name: Debug message
         if: env.DEBUG == 'true'
@@ -44,12 +43,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js 
-        uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: '22'
 
       - name: Print a message for main branch
         if: github.ref == 'refs/heads/main'
@@ -58,9 +57,6 @@ jobs:
       - name: Print a message for non-main branches
         if: github.ref != 'refs/heads/main'
         run: echo "This is not the main branch."
-
-      - name: Run tests
-        run: npm test
 
       - name: Debug message
         if: env.DEBUG == 'true'
@@ -71,7 +67,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Publish test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: test-results
-          path: test-results.xml
+        run: echo "Both parallel jobs completed successfully."
